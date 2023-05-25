@@ -1,11 +1,12 @@
-// import Image from "next/image";
-import ClothesList from "@/components/ClothesList";
-import { ReactNode } from "react";
+import ClothesList from '@/components/ClothesList'
+import { ReactElement } from 'react'
 
-export default function Home() {
+const Home = (): ReactElement => {
   return (
-    <div className="app">
+    <div className='app'>
       <ClothesList />
     </div>
-  );
+  )
 }
+
+export default Home

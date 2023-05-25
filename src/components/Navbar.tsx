@@ -1,19 +1,19 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from 'next/link'
 
-const Navbar = () => {
-  const router = useRouter();
+export default function Navbar (): JSX.Element {
   return (
-    <div className="w-full border border-solid border-black grid grid-cols-3 py-4">
-      <div className="text-center">buscador</div>
-      <button onClick={() => router.push("/")} className="text-center">
+    <div className='w-full border border-solid border-black grid grid-cols-3 py-4'>
+      <Link className='text-center' href='/'>
+        Buscador
+      </Link>
+      <Link className='text-center' href='/'>
         Logo
-      </button>
-      <button onClick={() => router.push("/cart")} className="text-center">
-        Carrito
+      </Link>
+      <button>
+        <Link className='text-center' href='/cart'>
+          Cart
+        </Link>
       </button>
     </div>
-  );
-};
-
-export default Navbar;
+  )
+}
