@@ -1,4 +1,5 @@
 import './globals.css'
+import { AdminContextProvider } from '@/context/AdminContext'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 
@@ -18,7 +19,9 @@ export default function RootLayout ({
     <html lang='en'>
       <body className={inter.className}>
         <Navbar />
-        {children}
+        <AdminContextProvider>
+          {children}
+        </AdminContextProvider>
       </body>
     </html>
   )

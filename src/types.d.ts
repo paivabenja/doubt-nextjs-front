@@ -7,11 +7,15 @@ interface Sizes {
   '3xl': number
 }
 
-export interface Clothe {
+export interface ClotheEntry {
   img_front: string
   img_back: string
   name: string
   price: number
   sizes: Sizes
-  type: string
+  type: 'pant' | 'hoodie' | 'shirt'
+}
+
+export interface RealClothe extends ClotheEntry {
+  _id: string
 }

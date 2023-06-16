@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
-export default function Page() {
-  return <div>cart</div>;
+export default function Page (): JSX.Element {
+  return <div>cart</div>
 }

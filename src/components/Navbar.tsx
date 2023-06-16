@@ -1,19 +1,14 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import logoImg from '../../public/images/doubtt.png'
 
-export default function Navbar (): JSX.Element {
+export default function Nav (): JSX.Element {
   return (
-    <div className='w-full border border-solid border-black grid grid-cols-3 py-4'>
-      <Link className='text-center' href='/'>
-        Buscador
+    <div className='h-24 flex justify-between items-center p-6'>
+      <Link href='/' className='h-6'>
+        <Image src={logoImg} alt='logo' className='h-full w-auto' />
       </Link>
-      <Link className='text-center' href='/'>
-        Logo
-      </Link>
-      <button>
-        <Link className='text-center' href='/cart'>
-          Cart
-        </Link>
-      </button>
+      <Link href='/admin'>Admin</Link>
     </div>
   )
 }

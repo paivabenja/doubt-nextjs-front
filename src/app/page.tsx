@@ -1,11 +1,8 @@
 import ClothesList from '@/components/ClothesList'
-import { ReactElement } from 'react'
 
-const Home = (): ReactElement => {
+const Home = (): JSX.Element => {
   return (
-    <div className='app'>
-      <ClothesList />
-    </div>
+    <ClothesList />
   )
 }
 
