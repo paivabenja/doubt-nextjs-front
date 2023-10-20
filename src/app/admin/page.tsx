@@ -12,7 +12,7 @@ export default function Page (): JSX.Element {
   useEffect(() => { console.log(admin) }, [admin])
 
   return (
-    <div>
+    <div className='flex justify-center items-center'>
       <AddClotheForm />
     </div>
   )

@@ -14,90 +14,101 @@ export default function AddClotheForm (): JSX.Element {
   const [data, setData] = useState<ClotheEntry>()
 
   const onSubmit = handleSubmit((formData) => {
-    const newClothe = {
-      name: formData.name,
-      price: formData.price,
-      type: formData.type,
-      img_front: 'imagen front',
-      img_back: 'imagen back',
-      sizes: {
-        s: formData.s,
-        m: formData.m,
-        l: formData.l,
-        xl: formData.xl,
-        '2xl': formData['2xl'],
-        '3xl': formData['3xl']
-      }
-    }
-    setData(newClothe)
+    // console.log(formData)
+    // const newClothe = {
+    //   name: formData.name,
+    //   price: formData.price,
+    //   type: formData.type,
+    //   img_front: 'imagen front',
+    //   img_back: 'imagen back',
+    //   sizes: {
+    //     s: formData.s,
+    //     m: formData.m,
+    //     l: formData.l,
+    //     xl: formData.xl,
+    //     xxl: formData.xxl,
+    //     xxxl: formData.xxxl
+    //   }
+    // }
+    setData(formData as ClotheEntry)
   })
 
   useEffect(() => {
-    if (data === undefined) { return }
+    if (data === undefined) return
     void createClothe(data)
   }, [data])
 
+  const inputStyle =
+    'border-2 border-solid rounded-lg py-2 px-5 bg-doubt-green border-doubt-green-light placeholder:text-doubt-green-light focus:outline-none focus:border-doubt-green-lighter duration-500'
+
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={onSubmit}
+      className='duration-500 flex flex-col w-3/4 md:w-1/2 gap-3'
+    >
       <input
         type='text'
         {...register('name', { required: true })}
         placeholder='Insert clothe name'
-        className='border border-solid border-black'
+        className={inputStyle}
       />
       {(errors.name != null) && <span>Pone el nombre chupapija</span>}
       <input
         type='number'
         {...register('price', { required: true })}
         placeholder='Insert clothe price'
-        className='border border-solid border-black'
+        className={inputStyle}
       />
       {(errors.price != null) && <span>Pone el precio chupapija</span>}
       <input
         type='text'
         {...register('type', { required: true })}
         placeholder='Insert clothe type'
-        className='border border-solid border-black'
+        className={inputStyle}
       />
       <div>Insert the sizes available</div>
-      <input
-        type='number'
-        {...register('s', { required: true })}
-        placeholder='size S'
-        className='border border-solid border-black'
-      />
-      <input
-        type='number'
-        {...register('m', { required: true })}
-        placeholder='size M'
-        className='border border-solid border-black'
-      />
-      <input
-        type='number'
-        {...register('l', { required: true })}
-        placeholder='size L'
-        className='border border-solid border-black'
-      />
-      <input
-        type='number'
-        {...register('xl', { required: true })}
-        placeholder='size Xl'
-        className='border border-solid border-black'
-      />
-      <input
-        type='number'
-        {...register('2xl', { required: true })}
-        placeholder='size 2Xl'
-        className='border border-solid border-black'
-      />
-      <input
-        type='number'
-        {...register('3xl', { required: true })}
-        placeholder='size 3Xl'
-        className='border border-solid border-black'
-      />
+      <div className='grid grid-cols-2 gap-3'>
+        <input
+          type='number'
+          {...register('sizes[s]', { required: true })}
+          placeholder='size S'
+          className={inputStyle}
+        />
+        <input
+          type='number'
+          {...register('sizes[m]', { required: true })}
+          placeholder='size M'
+          className={inputStyle}
+        />
+        <input
+          type='number'
+          {...register('sizes[l]', { required: true })}
+          placeholder='size L'
+          className={inputStyle}
+        />
+        <input
+          type='number'
+          {...register('sizes[xl]', { required: true })}
+          placeholder='size Xl'
+          className={inputStyle}
+        />
+        <input
+          type='number'
+          {...register('sizes[xxl]', { required: true })}
+          placeholder='size 2Xl'
+          className={inputStyle}
+        />
+        <input
+          type='number'
+          {...register('sizes[xxxl]', { required: true })}
+          placeholder='size 3Xl'
+          className={inputStyle}
+        />
+      </div>
 
-      <button>submit</button>
+      <input type='file' accept='image/*' {...register('img_front', { required: true })} />
+      <input type='file' accept='image/*' {...register('img_back', { required: true })} />
+      <button className={inputStyle + ' w-1/2 self-center'}>submit</button>
       {Object.keys(errors).length > 0 && <p>culiado sos un down</p>}
     </form>
   )

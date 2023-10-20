@@ -15,7 +15,7 @@ export default function ClothesList (): JSX.Element {
   }, [])
 
   return (
-    <div className='clth-lists px-5 flex justify-center items-center gap-5'>
+    <div className='clth-lists w-full h-full px-5 flex flex-wrap justify-center items-center gap-5'>
       {clothes.map((clth, i) => (
         <ClotheCard clth={clth} key={i} />
       ))}

@@ -3,8 +3,12 @@ interface Sizes {
   m: number
   l: number
   xl: number
-  '2xl': number
-  '3xl': number
+  xxl: number
+  xxxl: number
+}
+
+export interface RealClothe extends ClotheEntry {
+  _id: string
 }
 
 export interface ClotheEntry {
@@ -14,8 +18,4 @@ export interface ClotheEntry {
   price: number
   sizes: Sizes
   type: 'pant' | 'hoodie' | 'shirt'
-}
-
-export interface RealClothe extends ClotheEntry {
-  _id: string
 }

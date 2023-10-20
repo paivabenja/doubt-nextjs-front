@@ -1,5 +1,6 @@
 import { ClotheEntry } from '@/types'
 import axios, { AxiosResponse } from 'axios'
+import { toast } from 'react-hot-toast'
 
 const clothesApi = axios.create({
   baseURL: 'http://localhost:8000/'
@@ -10,7 +11,14 @@ export const getAllClothes = async (): Promise<AxiosResponse> => {
 }
 
 export const createClothe = async (clth: ClotheEntry): Promise<void> => {
-  return await clothesApi.post('api/clothes/', clth)
+  toast.promise(
+    clothesApi.post('api/clothes/', clth),
+    {
+      loading: 'Adding clothe',
+      success: 'Clothe added successfully',
+      error: 'There was a problem adding the clothe'
+    }
+  ).catch(err => console.error(err))
 }
 
 export const getClotheById = async (id: number): Promise<AxiosResponse> => (

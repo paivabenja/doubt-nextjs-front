@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       colors: {
         'doubt-green': '#0b3a00',
+        'doubt-green-light': '#a4b59f',
+        'doubt-green-lighter': '#e2ebdf',
       }
     },
   },
