@@ -1,3 +1,5 @@
+'use client'
+
 import ClothesList from '@/components/ClothesList'
 
 const Home = (): JSX.Element => {

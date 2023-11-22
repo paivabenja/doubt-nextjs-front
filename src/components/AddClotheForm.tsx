@@ -14,22 +14,6 @@ export default function AddClotheForm (): JSX.Element {
   const [data, setData] = useState<ClotheEntry>()
 
   const onSubmit = handleSubmit((formData) => {
-    // console.log(formData)
-    // const newClothe = {
-    //   name: formData.name,
-    //   price: formData.price,
-    //   type: formData.type,
-    //   img_front: 'imagen front',
-    //   img_back: 'imagen back',
-    //   sizes: {
-    //     s: formData.s,
-    //     m: formData.m,
-    //     l: formData.l,
-    //     xl: formData.xl,
-    //     xxl: formData.xxl,
-    //     xxxl: formData.xxxl
-    //   }
-    // }
     setData(formData as ClotheEntry)
   })
 
@@ -94,20 +78,20 @@ export default function AddClotheForm (): JSX.Element {
         />
         <input
           type='number'
-          {...register('sizes[xxl]', { required: true })}
+          {...register('sizes[xl2]', { required: true })}
           placeholder='size 2Xl'
           className={inputStyle}
         />
         <input
           type='number'
-          {...register('sizes[xxxl]', { required: true })}
+          {...register('sizes[xl3]', { required: true })}
           placeholder='size 3Xl'
           className={inputStyle}
         />
       </div>
 
-      <input type='file' accept='image/*' {...register('img_front', { required: true })} />
-      <input type='file' accept='image/*' {...register('img_back', { required: true })} />
+      <input type='file' {...register('img_front', { required: true })} />
+      <input type='file' {...register('img_back', { required: true })} />
       <button className={inputStyle + ' w-1/2 self-center'}>submit</button>
       {Object.keys(errors).length > 0 && <p>culiado sos un down</p>}
     </form>

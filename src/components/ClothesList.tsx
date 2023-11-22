@@ -3,7 +3,7 @@ import { getAllClothes } from '@/api/clothes'
 import { useEffect, useState } from 'react'
 import ClotheCard from './ClotheCard'
 
-export default function ClothesList (): JSX.Element {
+export default function ClothesList(): JSX.Element {
   const [clothes, setClothes] = useState([])
   const getData = async (): Promise<void> => {
     const clths = await getAllClothes()

@@ -1,26 +1,37 @@
+'use client'
+import { toast } from 'react-hot-toast'
 import { ClotheEntry } from '@/types'
 import axios, { AxiosResponse } from 'axios'
-import { toast } from 'react-hot-toast'
 
+const baseURL = 'http://localhost:3001/clothes/'
 const clothesApi = axios.create({
-  baseURL: 'http://localhost:8000/'
+  baseURL
 })
 
 export const getAllClothes = async (): Promise<AxiosResponse> => {
-  return await clothesApi.get('api/clothes/', { data: { __v: 0, _id: 0 } })
+  return await clothesApi.get('/')
 }
 
 export const createClothe = async (clth: ClotheEntry): Promise<void> => {
-  toast.promise(
-    clothesApi.post('api/clothes/', clth),
-    {
-      loading: 'Adding clothe',
+  clth.img_front = clth.img_front[0]
+  clth.img_back = clth.img_back[0]
+
+  const headers = {
+    'Content-Type': 'multipart/form-data'
+  }
+
+  toast
+    .promise(clothesApi.post('/', clth, { headers }), {
+      loading: 'Adding  clothe',
       success: 'Clothe added successfully',
       error: 'There was a problem adding the clothe'
-    }
-  ).catch(err => console.error(err))
+    })
+    .catch((err) => console.error(err))
 }
 
-export const getClotheById = async (id: number): Promise<AxiosResponse> => (
-  await clothesApi.get(`/api/clothes/id/${id}`)
-)
+export const getClotheById = async (id: number): Promise<AxiosResponse> =>
+  await clothesApi.get(`${id}`)
+
+export const getImageById = (id: string): any => {
+  return baseURL + id
+}

@@ -1,26 +1,32 @@
-'use client'
-
 import React from 'react'
 import { RealClothe } from '@/types'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { Card, CardHeader, CardBody } from '@nextui-org/react'
 
 interface Props { clth: RealClothe }
 
 export default function ClotheCard (props: Props): JSX.Element {
-  const imageServer = 'http://localhost:8000/'
   const router = useRouter()
-  const handleClick = (): void => {
+  const handlePress = (): void => {
     void router.push(`/clothe/id/${props.clth._id}`)
   }
-  // alert(props.clth.img_front)
+
   return (
-    <div className='text-doubt-green bg-slate-100 rounded-lg p-4 w-64 h-32 flex flex-col justify-between' onClick={handleClick}>
-      <div>
-        <h1 className='font-semibold text-xl capitalize'>{props.clth.name}</h1>
-        <h2 className='text-xs text-slate-600 capitalize'>{props.clth.type}</h2>
-      </div>
-      <img src={imageServer + props.clth.img_front} />
-      <h3>${props.clth.price}</h3>
-    </div>
+    <Card className='py-4' isPressable onPress={handlePress}>
+      <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
+        <p className='text-large uppercase font-bold'>{props.clth.name}</p>
+        <small className='text-default-500'>{props.clth.type}</small>
+      </CardHeader>
+      <CardBody className='overflow-visible py-2'>
+        <Image
+          alt='Card background'
+          className='object-cover rounded-xl'
+          src={'http://localhost:3001/images/' + props.clth.img_front}
+          height={300}
+          width={270}
+        />
+      </CardBody>
+    </Card>
   )
 }

@@ -1,19 +1,25 @@
 'use client'
 
 import AddClotheForm from '@/components/AddClotheForm'
-import { useContext, useEffect } from 'react'
-import { AdminContext } from '@/context/AdminContext'
+import { Button } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
-export default function Page (): JSX.Element {
-  const { admin, setAdmin } = useContext(AdminContext)
-
-  console.log(admin)
-  setAdmin(true)
-  useEffect(() => { console.log(admin) }, [admin])
-
+export default function Page(): JSX.Element {
+  const [page, setPage] = useState<'hidden' | 'addClothe' | 'profile'>('hidden')
+  const { push } = useRouter()
+  useEffect(() => {
+    if (page === 'profile') {
+      push('/profile')
+    }
+  })
   return (
     <div className='flex justify-center items-center'>
-      <AddClotheForm />
+      {page === 'hidden' && <div>
+        <Button onClick={() => setPage('addClothe')}>Add clothe</Button>
+        <Button onClick={() => setPage('profile')}>Profile settings</Button>
+      </div>}
+      {page === 'addClothe' && <AddClotheForm />}
     </div>
   )
 }

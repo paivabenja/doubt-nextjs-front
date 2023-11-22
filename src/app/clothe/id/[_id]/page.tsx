@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { getClotheById } from '@/api/clothes'
-import { ClotheEntry } from '@/types'
 import ClotheNotFound from '@/components/ClotheNotFound'
 import BuyClothe from '@/components/BuyClothe'
+import { RealClothe } from '@/types'
 
 interface Props {
   params: {
@@ -12,17 +12,15 @@ interface Props {
 }
 
 export default function Page (props: Props): JSX.Element {
-  const [data, setData] = useState<ClotheEntry>()
+  const [data, setData] = useState<RealClothe>()
 
   const getData = async (): Promise<void> => {
     if (data !== undefined) return
     const clth = await getClotheById(props.params._id)
-    setData(clth.data as ClotheEntry)
+    setData(clth.data as RealClothe)
   }
 
   useEffect(() => {
-    console.log('( app/clothe/id/[id] ) void get data and data: ')
-    console.log(data)
     void getData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
