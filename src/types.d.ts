@@ -29,7 +29,8 @@ export interface SaleEntry {
 export interface User {
   loggedIn: boolean
   isAdmin?: boolean
-  username?: string
+  name?: string
+  lastname?: string
   email?: string
   password?: string
   _id?: string

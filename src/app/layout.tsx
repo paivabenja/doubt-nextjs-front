@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Thik less, do more'
 }
 
-export default function RootLayout({
+export default function RootLayout ({
   children
 }: {
   children: React.ReactNode

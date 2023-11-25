@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { loginUser, registerUser } from '@/api/auth'
 import { User } from '@/types'
-import { AxiosResponse } from 'axios'
 import { useRouter } from 'next/navigation'
+import { Input, Button } from '@nextui-org/react'
 
-export const SignUpForm = () => {
+export const SignUpForm = (): JSX.Element => {
   const { push } = useRouter()
   const {
     register,
@@ -21,15 +21,12 @@ export const SignUpForm = () => {
     setData(formData as User)
   })
 
-  const handleRegister = async (data: User) => {
-    const res = await registerUser(data) as AxiosResponse
+  const handleRegister = async (data: User): Promise<void> => {
+    const res = await registerUser({ ...data, isAdmin: false })
     if (res.status === 200) {
       const loginRes = await loginUser(data)
-      console.log('login res')
-      console.log(loginRes)
-      if (loginRes && loginRes.status && loginRes.status === 200) {
-        push('/')
-      }
+      if (loginRes.status !== 200) return
+      push('/')
     }
   }
 
@@ -37,6 +34,7 @@ export const SignUpForm = () => {
     if (data === undefined) return
     console.log(data)
     void handleRegister(data)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (
@@ -44,23 +42,23 @@ export const SignUpForm = () => {
       <form className='flex flex-col text-left' onSubmit={onSubmit}>
 
         <label className='' htmlFor='username'>Name</label>
-        <input className='text-black' type='text' {...register('name', { required: true })} />
+        <Input className='text-black' type='text' {...register('name', { required: true })} />
         {(errors.name != null && <span>Pone el usuario gordo hijo de re mil puta</span>)}
 
         <label className='' htmlFor='username'>Lastname</label>
-        <input className='text-black' type='text' {...register('lastname', { required: true })} />
+        <Input className='text-black' type='text' {...register('lastname', { required: true })} />
         {(errors.lastname != null && <span>Pone el usuario gordo hijo de re mil puta</span>)}
 
         <label htmlFor='email'>Email</label>
-        <input className='text-black' type='email' {...register('email', { required: true })} />
+        <Input className='text-black' type='email' {...register('email', { required: true })} />
         {(errors.email != null && <span>Pone el mail gordo hijo de re mil puta</span>)}
 
         <label htmlFor='password'>Password</label>
-        <input className='text-black' type='password' {...register('password', { required: true })} />
+        <Input className='text-black' type='password' {...register('password', { required: true })} />
         {(errors.password != null && <span>PERO PONE UNA CONTRASEÑA AL MENOS PEDAZO DE RE MIL CULIADO NO PUEDE SER AAAAAAAAAAAAAAAA</span>)}
 
         <label htmlFor='password2'>Repeat your password</label>
-        <input
+        <Input
           className='text-black'
           type='password' {...register('password2', {
             required: true,
@@ -73,7 +71,7 @@ export const SignUpForm = () => {
         />
         {(errors.password2 != null && <span>LA CONTRASEÑA NO ES IGUAAAAAAAAAAAAAAAAAAAAAAAL</span>)}
 
-        <input type='submit' />
+        <Button type='submit'>Submit</Button>
       </form>
     </div>
   )

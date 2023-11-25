@@ -12,12 +12,13 @@ interface UserContextTtype {
 }
 
 const exampleUser: User = { loggedIn: false }
-const exampleSetter = (u: User): void => { }
+const exampleSetter = (): void => { }
 
-export const UserContext = createContext<UserContextTtype>({ user: {}, setUser: exampleSetter })
+export const UserContext = createContext<UserContextTtype>({ user: exampleUser, setUser: exampleSetter })
 
 export const UserContextProvider = ({ children }: Props): JSX.Element => {
   const [user, setUser] = useState<User>(exampleUser)
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
