@@ -6,11 +6,11 @@ export const metadata = {
   description: 'Thik less, do more'
 }
 
-export default function RootLayout ({
-  children
-}: {
+interface Props {
   children: React.ReactNode
-}): React.ReactNode {
+}
+
+export default function RootLayout ({ children }: Props): React.ReactNode {
   return (
     <html lang='en'>
       <body>

@@ -8,7 +8,7 @@ interface Sizes {
 }
 
 export interface RealClothe extends ClotheEntry {
-  _id: string
+  _id?: string
 }
 
 export interface ClotheEntry {
@@ -21,9 +21,9 @@ export interface ClotheEntry {
 }
 
 export interface SaleEntry {
-  clotheId: string
-  clotheName: string
-  userId: string
+  clotheId?: string
+  clotheName?: string
+  userId?: string
 }
 
 export interface User {

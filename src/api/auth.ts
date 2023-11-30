@@ -8,7 +8,7 @@ const authApi = axios.create({
   baseURL
 })
 
-export const loginUser = async (data: User): Promise<AxiosResponse> => {
+export const loginUser = async (data: User): Promise<boolean> => {
   const res = await toast.promise(
     authApi.post('/login', data, { withCredentials: true }),
     {
@@ -16,10 +16,9 @@ export const loginUser = async (data: User): Promise<AxiosResponse> => {
       success: 'se logio',
       error: 'se romppio el login'
     }
-  ).catch(err => console.log(err))
-  console.log(res)
+  ).catch(err => console.log(err)) as AxiosResponse
 
-  return res as AxiosResponse
+  return res.status === 200
 }
 
 export const registerUser = async (data: User): Promise<AxiosResponse> => {

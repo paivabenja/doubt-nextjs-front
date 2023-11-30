@@ -25,7 +25,7 @@ export const SignInForm = (): JSX.Element => {
 
   const handleLogIn = async (loginData: User): Promise<void> => {
     const res = await loginUser(loginData)
-    if (res.status === 200) {
+    if (res) {
       setUser(await getUser())
       push('/')
     }

@@ -25,7 +25,7 @@ export const SignUpForm = (): JSX.Element => {
     const res = await registerUser({ ...data, isAdmin: false })
     if (res.status === 200) {
       const loginRes = await loginUser(data)
-      if (loginRes.status !== 200) return
+      if (!loginRes) return
       push('/')
     }
   }

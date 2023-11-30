@@ -1,20 +1,42 @@
 import { createSale } from '@/api/sales'
-import React from 'react'
-import { RealClothe } from '@/types'
+import React, { useContext, useEffect, useState } from 'react'
+import { RealClothe, SaleEntry } from '@/types'
 import Image from 'next/image'
+import { UserContext } from '@/context/UserContext'
+import { Button, Input } from '@nextui-org/react'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   clth: RealClothe
 }
 
 export default function BuyClothe ({ clth }: Props): JSX.Element {
-  const handlePlaceOrder = (): void => {
-    const sale = { userId: 'iuseraidi', clotheId: clth._id, clotheName: clth.name }
-    void createSale(sale)
+  const [data, setData] = useState<SaleEntry>()
+
+  const { user } = useContext(UserContext)
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = handleSubmit(formData => {
+    setData(formData as SaleEntry)
   }
+  )
+
+  useEffect(() => {
+    if (data === undefined) return
+
+    const sale: SaleEntry = {
+      ...data,
+      userId: user._id,
+      clotheId: clth._id,
+      clotheName: clth.name
+    }
+
+    void createSale(sale)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   return (
-    <div className='h-full rounded-md bg-white text-doubt-green mx-12 p-10'>
+    <div className='h-full rounded-md mx-12 p-10 overflow-hidden'>
       <div className='flex justify-between'>
         <div>
           <h1 className='text-2xl font-semibold'>Buy</h1>
@@ -23,12 +45,23 @@ export default function BuyClothe ({ clth }: Props): JSX.Element {
         <p> {clth.type} </p>
       </div>
       <div className='flex justify-stretch'>
-        <Image src={`http://localhost:3001/images/${clth.img_front}`} alt='' width={500} height={0} className='rounded-lg my-4' />
-        <div className='bg-red-400 w-full p-12'>
-          <button onClick={handlePlaceOrder} className='bg-doubt-green text-white p-2 rounded-md'>Place order</button>
-        </div>
+        <Image
+          src={`http://localhost:3001/images/${clth.img_front}`}
+          alt=''
+          width={500}
+          height={0}
+          className='rounded-lg my-4'
+        />
+        <form name='address form' className='w-full p-12' onSubmit={onSubmit}>
+          <label htmlFor='address form'>Set your address</label>
+          <Input {...register('street', { required: true })} className='my-4' type='text' placeholder='Street' />
+          <Input {...register('postalCode', { required: true })} className='my-4' type='text' placeholder='Postal code' />
+          <Input {...register('number', { required: true })} className='my-4' type='number' placeholder='Number' />
+          <Input {...register('extraData', { required: false })} className='my-4' type='text' placeholder='Floor, apartment number, batch' />
+          <Button type='submit'>Place Order</Button>
+        </form>
       </div>
-      <p>Me pediste una seca y recien lo enrole con el id: {clth._id}</p>
+      <p>Clothe Id: {clth._id}</p>
     </div>
   )
 }

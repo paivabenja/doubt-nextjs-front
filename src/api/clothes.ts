@@ -29,8 +29,11 @@ export const createClothe = async (clth: ClotheEntry): Promise<void> => {
     .catch((err) => console.error(err))
 }
 
-export const getClotheById = async (id: number): Promise<AxiosResponse> =>
-  await clothesApi.get(`${id}`)
+export const getClotheById = async (id: string): Promise<AxiosResponse> => {
+  const res = await clothesApi.get(`${id}`)
+  console.log(res)
+  return res
+}
 
 export const getImageById = (id: string): any => {
   return baseURL + id
