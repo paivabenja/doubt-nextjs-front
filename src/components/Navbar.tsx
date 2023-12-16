@@ -1,13 +1,13 @@
 'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import logoImg from '../../public/images/doubtt.png'
-import { UserContext } from '@/context/UserContext'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from '@nextui-org/react'
-import { useContext } from 'react'
+import { useUserStore } from '@/zustand/userStore'
 
 export default function Nav (): JSX.Element {
-  const { user } = useContext(UserContext)
+  const user = useUserStore(state => state.user)
 
   return (
     <Navbar>
@@ -25,8 +25,18 @@ export default function Nav (): JSX.Element {
       </NavbarContent>
       <NavbarContent justify='end'>
         <NavbarItem>
-          <Button as={Link} color='primary' href={user.loggedIn ? (user.isAdmin !== null && user.isAdmin === true) ? '/admin' : '/profile' : '/signup'} variant='flat'>
-            {user.loggedIn ? (user.isAdmin !== null && user.isAdmin === true) ? 'Admin' : 'Profile' : 'Sing In'}
+          <Button
+            as={Link} color='primary' href={user.loggedIn
+              ? (user.isAdmin !== null && user.isAdmin === true)
+                  ? '/admin'
+                  : '/profile'
+              : '/signup'} variant='flat'
+          >
+            {user.loggedIn
+              ? (user.isAdmin !== null && user.isAdmin === true)
+                  ? 'Admin'
+                  : 'Profile'
+              : 'Sing In'}
           </Button>
         </NavbarItem>
       </NavbarContent>

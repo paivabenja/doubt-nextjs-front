@@ -1,6 +1,6 @@
 import { createSale } from '@/api/sales'
 import React, { useContext, useEffect, useState } from 'react'
-import { RealClothe, SaleEntry } from '@/types'
+import { AddressEntry, RealClothe, SaleEntry } from '@/types'
 import Image from 'next/image'
 import { UserContext } from '@/context/UserContext'
 import { Button, Input } from '@nextui-org/react'
@@ -11,13 +11,15 @@ interface Props {
 }
 
 export default function BuyClothe ({ clth }: Props): JSX.Element {
-  const [data, setData] = useState<SaleEntry>()
+  const [data, setData] = useState<AddressEntry>()
 
   const { user } = useContext(UserContext)
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<AddressEntry>()
 
   const onSubmit = handleSubmit(formData => {
-    setData(formData as SaleEntry)
+    console.log('formData')
+    console.log(formData)
+    setData(formData)
   }
   )
 
@@ -25,7 +27,7 @@ export default function BuyClothe ({ clth }: Props): JSX.Element {
     if (data === undefined) return
 
     const sale: SaleEntry = {
-      ...data,
+      address: { ...data },
       userId: user._id,
       clotheId: clth._id,
       clotheName: clth.name
@@ -54,9 +56,9 @@ export default function BuyClothe ({ clth }: Props): JSX.Element {
         />
         <form name='address form' className='w-full p-12' onSubmit={onSubmit}>
           <label htmlFor='address form'>Set your address</label>
-          <Input {...register('street', { required: true })} className='my-4' type='text' placeholder='Street' />
-          <Input {...register('postalCode', { required: true })} className='my-4' type='text' placeholder='Postal code' />
-          <Input {...register('number', { required: true })} className='my-4' type='number' placeholder='Number' />
+          <Input {...register('streetName', { required: true })} className='my-4' type='text' placeholder='Street' />
+          <Input {...register('postalCode', { required: true, valueAsNumber: true })} className='my-4' type='number' placeholder='Postal code' />
+          <Input {...register('streetNumber', { required: true, valueAsNumber: true })} className='my-4' type='number' placeholder='Number' />
           <Input {...register('extraData', { required: false })} className='my-4' type='text' placeholder='Floor, apartment number, batch' />
           <Button type='submit'>Place Order</Button>
         </form>

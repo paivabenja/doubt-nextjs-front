@@ -43,7 +43,7 @@ export const getUser = async (): Promise<User> => {
   }))
 
   if (res.status !== 200) {
-    console.log(res)
+    console.log(res.data)
     return user
   }
 

@@ -1,5 +1,7 @@
+import { Toaster } from 'react-hot-toast'
 import './globals.css'
 import { Providers } from '@/components/Providers'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Doubt',
@@ -13,8 +15,10 @@ interface Props {
 export default function RootLayout ({ children }: Props): React.ReactNode {
   return (
     <html lang='en'>
-      <body>
+      <body className='min-h-screen'>
         <Providers>
+          <Toaster />
+          <Navbar />
           {children}
         </Providers>
       </body>

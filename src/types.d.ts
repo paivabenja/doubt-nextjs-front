@@ -24,6 +24,14 @@ export interface SaleEntry {
   clotheId?: string
   clotheName?: string
   userId?: string
+  address?: AddressEntry
+}
+
+export interface AddressEntry {
+  postalCode?: number
+  streetName?: string
+  streetNumber?: int
+  extraData?: string
 }
 
 export interface User {

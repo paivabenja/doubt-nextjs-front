@@ -25,3 +25,17 @@ export const createSale = async (sale: SaleEntry): Promise<boolean> => {
 
   return res.status === 200
 }
+
+export const getAllSales = async (): Promise<SaleEntry[]> => {
+  const res = await toast.promise(
+    salesApi.get('/'),
+    {
+      loading: 'getting sales',
+      success: 'there u go',
+      error: 'theres been a problem getting the sales, contact ur mom'
+    }
+  )
+
+  console.log(res.data)
+  return res.data
+}
